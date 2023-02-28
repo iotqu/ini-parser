@@ -353,6 +353,11 @@ namespace IniParser.Parser
 			if (string.IsNullOrEmpty(key) && Configuration.SkipInvalidLines) return;
 
             string value = ExtractValue(line);
+            // TODO 此处需要支持变量占位符(例：${section.key} ),需要将占位符替换为真正的value
+            // 1、根据正则表达式匹配`value`，注意：`value`中可能会存在多个占位符
+            // 2、将匹配到的内容提取出里面的 section.key
+            // 3、调用IniData中的TryGetKey方法获取对应的属性值
+            // 4、将上一步中的属性值，替换掉对应占位符
 
             AddKeyvaluePair(key, value, currentIniData);
         }
